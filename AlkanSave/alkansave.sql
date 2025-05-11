@@ -127,7 +127,26 @@ SELECT
     (SELECT CONCAT('[', GROUP_CONCAT(CONCAT('"', CategoryName, '"')), ']') FROM CategoryUsage) AS TopCategories;
 
 
-
+-- IMPORTANT UPDATES!!!! PLS COPY PASTE THESE AGAIN TT TT
 ALTER TABLE User 
 MODIFY COLUMN Role VARCHAR(20) DEFAULT 'user',
 MODIFY COLUMN AccountStatus ENUM('Active','Inactive') DEFAULT 'Active';
+
+
+-- Drop the old table if it exists
+DROP TABLE IF EXISTS Admin;
+
+-- Create new table with email instead of username
+CREATE TABLE Admin (
+    AdminID INT AUTO_INCREMENT PRIMARY KEY,
+    Email VARCHAR(100) UNIQUE NOT NULL,
+    PasswordHash VARCHAR(255) NOT NULL,
+    LastLogin DATETIME,
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_email (Email)
+);
+
+-- Insert the default admin account
+INSERT INTO Admin (Email, PasswordHash) 
+VALUES ('admin@gmail.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
+-- Password: AdminAccount123
