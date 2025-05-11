@@ -1,0 +1,138 @@
+@font-face {
+  font-family: 'Garet';
+  src: url('../fonts/garet.heavy.ttf') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Garet', sans-serif;
+    background-image: url('../images/landing\ bg.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .landing-container {
+    text-align: center;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 2rem;
+  }
+  
+  .top-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .logo {
+    width: 25vw;
+    max-width: 300px;
+    height: auto;
+    margin-bottom: 5px;
+  }
+  
+  .header-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 6rem;
+    margin: 0;
+    line-height: .6;
+  }
+  
+  .text-alkan {
+    font-family: 'Garet', sans-serif;
+    color: #f07eae;
+  }
+  
+  .text-save {
+    font-family: 'Garet', sans-serif;
+    color: #3b3736;
+  }
+  
+  .tagline {
+    font-family: 'Poppins', sans-serif;
+    color: #0a0708;
+    font-size: 18px;
+    margin: 0;
+  }
+  
+  .bottom-content {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  .ready-text {
+    color: #f07eae;
+    font-size: 18px;
+    margin: 0;
+  }
+  
+  .login-button {
+    background-color: #ffc1cc;
+    border: 1px solid #3b3736;
+    color: #3b3736;
+    padding: 0.5rem 2rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    display: inline-block; /* needed for padding to apply correctly to <a> */
+    font-size: 1rem;
+    text-decoration: none;
+  }
+  
+  .login-button:hover {
+    background-color: #f07eae;
+  }
+  
+  .new-here {
+    color: #f07eae;
+    font-size: 0.95rem;
+  }
+  
+  .create-account {
+    color: #4662aa;
+    text-decoration: underline;
+    margin-left: 0.3rem;
+  }
+
+  .create-account:hover {
+    color: #556cf1;
+  }
+  
+  /* Responsive Styling */
+  @media (max-width: 768px) {
+    .logo {
+      width: 40vw;
+    }
+  
+    .header-title {
+      font-size: 2.2rem;
+    }
+  
+    .tagline,
+    .ready-text {
+      font-size: 1rem;
+    }
+  
+    .login-button {
+      padding: 0.4rem 1.5rem;
+      font-size: 0.95rem;
+    }
+  }
+  

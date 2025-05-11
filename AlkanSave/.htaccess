@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # If the requested file doesn't exist
+    RewriteCond %{REQUEST_FILENAME} !-f
+    # And it's not a directory
+    RewriteCond %{REQUEST_FILENAME} !-d
+    # Redirect all other requests to index.php
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
+
+# Allow access to all files
+Require all granted
+Options -Indexes +FollowSymLinks
