@@ -63,5 +63,17 @@ class PasswordResetRepository {
             $email
         ]);
     }
+    
+    public function deleteResetRequest($email) {
+        try {
+            $stmt = $this->db->prepare(
+                "DELETE FROM PasswordReset WHERE Email = ?"
+            );
+            return $stmt->execute([$email]);
+        } catch (PDOException $e) {
+            error_log("Failed to delete reset request: " . $e->getMessage());
+            return false;
+        }
+    }
 }
 ?>

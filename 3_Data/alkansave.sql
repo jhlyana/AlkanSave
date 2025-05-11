@@ -9,8 +9,9 @@ CREATE TABLE User (
     DOB DATE,
     Email VARCHAR(100) UNIQUE NOT NULL,
     PasswordHash VARCHAR(255) NOT NULL,
+    Role VARCHAR(20) DEFAULT 'user',
     ProfilePicture VARCHAR(255),
-    AccountStatus ENUM('Active', 'Inactive') DEFAULT 'Active',
+    AccountStatus ENUM('Active','Inactive') DEFAULT 'Active',
     DateCreated DATETIME DEFAULT CURRENT_TIMESTAMP,
     LastLogin DATETIME,
     IsDeleted BOOLEAN DEFAULT FALSE,
@@ -76,11 +77,11 @@ CREATE TABLE SavingsTransaction (
 -- Admin Table (with username index)
 CREATE TABLE Admin (
     AdminID INT AUTO_INCREMENT PRIMARY KEY,
-    Username VARCHAR(50) UNIQUE NOT NULL,
     PasswordHash VARCHAR(255) NOT NULL,
     LastLogin DATETIME,
     CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-    INDEX idx_username (Username)
+    Email VARCHAR(100) UNIQUE NOT NULL,
+    INDEX idx_email ON Admin (Email)
 );
 
 -- Activity Log (with timestamp index)
@@ -126,25 +127,6 @@ SELECT
     (SELECT COUNT(DISTINCT UserID) FROM ActivityLog 
      WHERE ActionType = 'Login' AND MONTH(Timestamp) = MONTH(CURDATE())) AS MonthlyActiveUsers,
     (SELECT CONCAT('[', GROUP_CONCAT(CONCAT('"', CategoryName, '"')), ']') FROM CategoryUsage) AS TopCategories;
-
-
--- IMPORTANT UPDATES!!!! PLS COPY PASTE THESE AGAIN TT TT
-ALTER TABLE User 
-MODIFY COLUMN Role VARCHAR(20) DEFAULT 'user',
-MODIFY COLUMN AccountStatus ENUM('Active','Inactive') DEFAULT 'Active';
-
-
--- Remove the username index first (since we'll be dropping the column)
-DROP INDEX idx_username ON Admin;
-
--- Drop the Username column
-ALTER TABLE Admin DROP COLUMN Username;
-
--- Add the Email column with unique constraint
-ALTER TABLE Admin ADD COLUMN Email VARCHAR(100) UNIQUE NOT NULL;
-
--- Add the new index
-CREATE INDEX idx_email ON Admin (Email);
 
 /*
 Insert the default admin account
