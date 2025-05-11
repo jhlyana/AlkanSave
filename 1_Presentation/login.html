@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlkanSave Login</title>
+  <link rel="icon" type="image/png" href="/AlkanSave/1_Presentation/images/logo.svg">
+  <link rel="stylesheet" href="/AlkanSave/1_Presentation/css/login.css">
+  <link href="https://fonts.googleapis.com/css2?family=Garet&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="login-container">
+    <div class="left-section">
+      <img src="/AlkanSave/1_Presentation/images/logo.svg" alt="AlkanSave Logo" class="logo-img">
+      <h1 class="brand-title">
+        <span class="text-alkan">Alkan</span><span class="text-save">Save</span>
+      </h1>
+      <h2 class="welcome-title"><span class="text-alkan">WELCOME</span> <span class="text-save">BACK</span></h2>
+      <p class="subtagline">Save little, dream big.</p>
+    </div>
+
+    <div class="right-section">
+      <a href="/AlkanSave/1_Presentation/landing.html" class="back-btn">
+        <span class="arrow">&#8592;</span> Back
+      </a>
+
+      <div class="form-wrapper">
+        <h2 class="form-title">Log In</h2>
+        <p class="form-subtitle">Enter your login details below.</p>
+  
+        <!-- Login Form -->
+        <form method="POST" action="/AlkanSave/2_Application/controllers/AuthController.php" class="login-form">
+          <input type="hidden" name="login" value="1">
+          
+          <input type="email" 
+                 name="email" 
+                 placeholder="Email" 
+                 class="input-field"
+                 required>
+        
+          <input type="password" 
+                 name="password" 
+                 placeholder="Password" 
+                 class="input-field"
+                 required
+                 autocomplete="off">
+        
+          <button type="submit" class="login-btn">Log In</button>
+          
+          <div class="forgot-password">
+            <a href="/AlkanSave/1_Presentation/forgotpass.html">Forgot Password?</a>
+          </div>
+        </form>
+        
+        <!-- Error Handling -->
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const urlParams = new URLSearchParams(window.location.search);
+          const error = urlParams.get('error');
+          
+          if (error === 'invalid_credentials') {
+            alert('Invalid email or password. Please try again.');
+            history.replaceState({}, '', window.location.pathname);
+          }
+        });
+        </script>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

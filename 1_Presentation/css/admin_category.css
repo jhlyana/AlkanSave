@@ -1,0 +1,272 @@
+.title-content {
+padding: 0px;
+overflow-y: auto;
+margin-top: 20px;
+background: transparent;
+padding: 10px;
+height: 450px;
+border-radius: 15px;
+display: flex;
+flex-direction: column;
+gap: 10px;
+align-items: center;
+scroll-behavior: smooth;
+}
+
+.title1 {
+font-size: 46px;
+color: #24336e;
+}
+
+.highlight-name {
+color: #f07eae;
+}
+
+.card-layout {
+display: flex;
+gap: 20px;
+width: 100%;  /* Use full width of the container */
+height: 100%; /* Ensure cards take full height of the section */
+}
+
+.left-column {
+display: flex;
+flex-direction: column;
+gap: 15px;
+flex: 1; 
+}
+
+.right-column {
+flex: 2; 
+}
+
+.small-card, .large-card {
+background-color: #fff3f8;
+border: 2px solid #f5abc0;
+border-radius: 8px;
+padding: 15px;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.category{
+flex: 1;
+background-color: #fff3f8;
+padding: 0.5rem;
+border: 2px solid #f5abc0;
+border-radius: 16px;
+text-align: center;
+box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.category p {
+margin-top: 20px;
+font-size: 1.5rem;
+color: #9f2584;
+margin-bottom: 0.5rem;
+}
+
+.category h3 {
+margin-top: 20px;
+font-size: 2.5rem;
+font-weight: 500;
+color: #f07eae;
+}
+
+.large-card {
+background-color: #fff3f8;
+border: 2px solid #f5abc0;
+height: 100%; 
+min-height: 150px;
+}
+
+.title-content::-webkit-scrollbar {
+width: 8px;
+}
+
+.title-content::-webkit-scrollbar-thumb {
+background: #f5abc0;
+border-radius: 10px;
+}
+
+.title-content::-webkit-scrollbar-track {
+background: #fff3f8;
+margin: 7px;
+}
+
+.title-wrapper {
+position: relative;
+width: 100%;
+text-align: center; /* Center the title */
+margin-bottom: 20px; /* spacing if needed */
+}
+
+.title-center {
+font-size: 25px;
+color: #24336e;
+}
+
+.title-center .details {
+color: #f07eae;
+}
+
+.add-category-btn {
+position: absolute;
+right: 5px;
+top: 50%;
+transform: translateY(-50%);
+display: inline-flex;
+align-items: center;
+gap: 5px;
+padding: 10px;
+background-color: #be93c7;
+color: white;
+font-size: .75rem;
+font-weight: bold;
+border: none;
+border-radius: 100px;
+width: 150px;
+height: 40px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+
+.add-category-btn:hover {
+background-color: #fa8fbc;
+}
+
+.add-category-btn img {
+width: 15px;
+height: 15px;
+}
+
+.goals-deadlines {
+margin-top: 10px;
+background: #ffb8dd;
+padding: 12px 18px;    
+border-radius: 10px;
+color: #24336e;
+font-weight: 100;
+text-align: left;
+transition: all 0.3s ease;
+cursor: pointer;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.category-scroll-area {
+max-height: 300px; /* Adjust this based on your design */
+overflow-y: auto;
+display: flex;
+flex-direction: column;
+gap: 5px;
+padding-right: 5px;
+}
+
+/* Optional: Scrollbar styling */
+.category-scroll-area::-webkit-scrollbar {
+width: 6px;
+}
+.category-scroll-area::-webkit-scrollbar-thumb {
+background: #f5abc0;
+border-radius: 10px;
+}
+.category-scroll-area::-webkit-scrollbar-track {
+background: #fff3f8;
+}
+
+.addC-modal {
+position: fixed;
+top: 0; left: 0;
+width: 100%; height: 100%;
+background: rgba(0, 0, 0, 0.5);
+display: none;
+align-items: center;
+justify-content: center;
+z-index: 1000;
+}
+
+.addC-modal.hide {
+display: none;
+}
+
+.addC-modal.show {
+display: flex;
+}
+
+.addC-content {
+background-image: url('../images/Background.svg');
+padding: 30px;
+border-radius: 12px;
+box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+text-align: center;
+margin: 20px;
+width: 400px;
+}
+
+.categoryName {
+text-align: center;
+font-weight: 600;
+font-size: 1rem;
+margin-bottom: 2rem;
+}
+
+.inputC {
+width: 100%;
+padding: 0.6rem 1rem;
+border-radius: 1rem;
+background-color: #f5abc0;
+transition: border-color 0.3s ease;
+margin-bottom: 1rem;
+}
+
+.addC-buttons {
+display: flex;
+gap: 20px;
+justify-content: center;
+}
+
+.addCconfirm-btn, .addCcancel-btn {
+font-size: .8rem;
+font-weight: bolder;
+border-radius: 100px;
+border: 2px solid #f5abc0;
+width: 80px;
+height: 30px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+
+.addCconfirm-btn {
+background-color: #be93c7;
+color: white;
+}
+
+.addCconfirm-btn:hover {
+background-color: #fa8fbc;
+transform: translateY(-1px);
+}
+
+.addCcancel-btn {
+background-color: white;
+color: #004b80;
+}
+
+.addCcancel-btn:hover {
+background-color: #fa8fbc;
+color: white;
+transform: translateY(-1px);
+}
+
+.add {
+color: #24336e;
+}
+
+.newGoal {
+color: #f07eae;
+}
+.categoryName {
+text-align: center;
+font-weight: 600;
+font-size: 1rem;
+margin-bottom: 2rem;
+color: #24336e;
+}

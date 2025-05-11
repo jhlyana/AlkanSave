@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AlkanSave - Profile</title>
+  <link rel="icon" href="images/logo.svg" type="image/x-icon">
+  <link rel="stylesheet" href="css/sharedLayout.css" />
+  <link rel="stylesheet" href="css/user_profile.css" />
+  <link rel="stylesheet" href="css/logout.css" />
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo">
+      <img src="images/logo.svg" alt="AlkanSave Logo" />
+      <h2><span class="alkan">Alkan</span><span class="save">Save</span></h2>
+    </div>
+    <nav>
+      <a href="user_home.html"><img src="images/home_icon.svg" alt="Home">Home</a>
+      <a href="user_savings.html"><img src="images/savings_icon.svg" alt="Savings & Goals">Savings & Goals</a>
+      <a href="user_transaction.html"><img src="images/transaction_icon.svg" alt="Transaction">Transaction</a>
+      <a href="user_reports.html"><img src="images/reports_icon.svg" alt="Reports">Reports</a>
+      <a href="user_profile.html" class="active"><img src="images/profile_icon.svg" alt="Profile">Profile</a>
+    </nav>
+    <a href="landing.html" class="logout" id="logoutButton">
+      <img src="images/logout_icon.svg" alt="Logout">Log Out
+    </a>
+  </div>
+
+  <div class="main-content">
+    <div class="datetime-container">
+      <div class="date-box" id="dateBox" data-label="DATE"></div>
+      <div class="time-box" id="timeBox" data-label="TIME"></div>
+    </div>
+  
+    <div class="profile-wrapper">
+      <h1 class="title1">My <span class="highlight-name">Profile</span></h1>
+  
+      <section class="transaction-card">
+        <div class="profile-container">
+          <div class="profile-pic-section">
+            <div class="profile-pic-box">
+              <img id="profilePreview" src="images/profile.svg" alt="Profile Picture" />
+              <div class="hover-overlay"></div>
+            </div>
+            <p class="subtagline">Certified AlkanSaver</p>
+          </div>
+    
+          <div class="profile-info">
+            <div class="info-grid">
+              <div class="info-item">
+                <label>Last Name</label>
+                <p>Doe</p>
+              </div>
+              <div class="info-item">
+                <label>First Name</label>
+                <p>Gaile</p>
+              </div>
+    
+              <div class="info-item">
+                <label>Date of Birth</label>
+                <p>1998-04-15</p>
+              </div>
+              <div class="info-item">
+                <label>Username</label>
+                <p>gaile_123</p>
+              </div>
+    
+              <div class="info-item full-width">
+                <label>Email Address</label>
+                <p>gaile@email.com</p>
+              </div>
+    
+              <div class="info-item button-cell">
+                <a href="user_edit_profile.html" class="edit-profile-btn">Edit Profile</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="logoutModal" class="logout-modal">
+      <div class="modal-content">
+        <h3>Are you sure you want to log out?</h3>
+        <div class="modal-buttons">
+          <button id="confirmLogout" class="confirm-btn">Yes</button>
+          <button id="cancelLogout" class="cancel-btn">No</button>
+        </div>
+      </div>
+    </div>
+  
+  
+    <script src="js/dateLinksLogout.js"></script>
+    <script src="js/user_profile.js"></script>
+  </body>
+  </html>

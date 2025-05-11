@@ -1,0 +1,268 @@
+.container {
+max-width: 1100px;
+margin: 2rem auto;
+padding: 2rem;
+}
+
+.backBtn {
+display: inline-flex;
+align-items: center;
+gap: 10px;
+padding: 10px;
+background-color: #be93c7;
+color: white;
+font-size: 1rem;
+font-weight: bold;
+border: none;
+border-radius: 100px;
+width: 100px;
+height: 40px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+
+.backBtn:hover {
+background-color: #fa8fbc;
+}
+
+.backBtn img {
+width: 20px;
+height: 20px;
+}
+
+.button-select-container {
+display: flex;
+align-items: center;  /* Vertically aligns both the select and the button */
+gap: 20px;  /* Adds space between the select box and the button */
+}
+
+.category {
+background-color: #f5abc0;
+border: 2px solid #be93c7;
+color: white;
+font-size: .8rem;
+font-weight: bold;
+border-radius: 100px;
+width: 165px;
+height: 40px;
+padding: 10px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+
+.category:hover {
+background-color: #fa8fbc;
+}
+
+.category option {
+background-color: #be93c7;
+color: white;
+}
+
+.category:focus {
+outline: none;
+}
+
+.addC-goal-btn {
+display: inline-flex;
+align-items: center;
+gap: 10px;
+padding: 10px;
+background-color: #be93c7;
+color: white;
+font-size: .8rem;
+font-weight: bold;
+border: none;
+border-radius: 100px;
+width: 165px;
+height: 40px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+
+.addC-goal-btn:hover {
+background-color: #fa8fbc;
+}
+
+.addC-goal-btn img {
+width: 20px;
+height: 20px;
+}
+
+.form-container {
+background-color: #fff3f8;
+border: 2px solid #f5abc0;
+padding: 2rem;
+border-radius: 1.5rem;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+height: 450px;
+}
+
+.form-title {
+text-align: center;
+font-weight: 600;
+font-size: 2rem;
+margin-bottom: 2rem;
+}
+
+.add {
+color: #24336e;
+}
+
+.newGoal {
+color: #f07eae;
+}
+
+.form-row {
+display: flex;
+flex-wrap: wrap;
+gap: 1.5rem;
+margin-bottom: 1.2rem;
+}
+
+.form-group {
+flex: 1;
+min-width: 250px;
+}
+
+.form-group label {
+display: block;
+margin-bottom: 0.5rem;
+font-weight: 600;
+color: #003366;
+}
+
+.form-group input {
+width: 100%;
+padding: 0.6rem 1rem;
+border-radius: 1rem;
+border: 2px solid #f5abc0;
+background-color: #f5abc0;
+transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+outline: none;
+border-color: #a259ff;
+background-color: #f5abc0;
+}
+
+.form-actions {
+display: flex;
+justify-content: flex-end;
+gap: 1rem;
+margin-top: 2rem;
+}
+
+.btn-add, .btn-cancel {
+gap: 10px;
+background-color: #be93c7;
+border: 2px solid #f5abc0;
+color: white;
+font-size: .8rem;
+font-weight: bolder;
+border-radius: 100px;
+width: 80px;
+height: 30px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+
+.btn-add:hover {
+background-color: #fa8fbc;
+transform: translateY(-1px);
+}
+
+.btn-cancel {
+background-color: white;
+color: #004b80;
+}
+
+.btn-cancel:hover {
+background-color: #fa8fbc;
+color: white;
+transform: translateY(-1px);
+}
+
+.addC-modal {
+position: fixed;
+top: 0; left: 0;
+width: 100%; height: 100%;
+background: rgba(0, 0, 0, 0.5);
+display: none;
+align-items: center;
+justify-content: center;
+z-index: 1000;
+}
+
+.addC-modal.hide {
+display: none;
+}
+
+.addC-modal.show {
+display: flex;
+}
+
+.addC-content {
+background-image: url('../images/Background.svg');
+padding: 30px;
+border-radius: 12px;
+box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+text-align: center;
+margin: 20px;
+width: 400px;
+}
+
+.categoryName {
+text-align: center;
+font-weight: 600;
+font-size: 1rem;
+margin-bottom: 2rem;
+}
+
+.inputC {
+width: 100%;
+padding: 0.6rem 1rem;
+border-radius: 1rem;
+background-color: #f5abc0;
+transition: border-color 0.3s ease;
+margin-bottom: 1rem;
+}
+
+.addC-buttons {
+display: flex;
+gap: 20px;
+justify-content: center;
+}
+
+.addCconfirm-btn, .addCcancel-btn {
+    font-size: .8rem;
+    font-weight: bolder;
+    border-radius: 100px;
+    border: 2px solid #f5abc0;
+    width: 80px;
+    height: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.addCconfirm-btn {
+background-color: #be93c7;
+color: white;
+}
+
+.addCconfirm-btn:hover {
+background-color: #fa8fbc;
+transform: translateY(-1px);
+}
+
+.addCcancel-btn {
+    background-color: white;
+    color: #004b80;
+}
+
+.addCcancel-btn:hover {
+    background-color: #fa8fbc;
+    color: white;
+    transform: translateY(-1px);
+}

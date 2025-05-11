@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AlkanSave - Edit Profile</title>
+  <link rel="icon" href="images/logo.svg" type="image/x-icon">
+  <link rel="stylesheet" href="css/sharedLayout.css" />
+  <link rel="stylesheet" href="css/user_edit_profile.css" />
+  <link rel="stylesheet" href="css/logout.css" />
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo">
+      <img src="images/logo.svg" alt="AlkanSave Logo" />
+      <h2><span class="alkan">Alkan</span><span class="save">Save</span></h2>
+    </div>
+    <nav>
+      <a href="user_home.html"><img src="images/home_icon.svg" alt="Home">Home</a>
+      <a href="user_savings.html"><img src="images/savings_icon.svg" alt="Savings & Goals">Savings & Goals</a>
+      <a href="user_transaction.html"><img src="images/transaction_icon.svg" alt="Transaction">Transaction</a>
+      <a href="user_reports.html"><img src="images/reports_icon.svg" alt="Reports">Reports</a>
+      <a href="user_profile.html"><img src="images/profile_icon.svg" alt="Profile">Profile</a>
+    </nav>
+    <a href="landing.html" class="logout" id="logoutButton">
+      <img src="images/logout_icon.svg" alt="Logout">Log Out
+    </a>
+  </div>
+
+  <div class="main-content">
+    <div class="datetime-container">
+      <div class="date-box" id="dateBox" data-label="DATE"></div>
+      <div class="time-box" id="timeBox" data-label="TIME"></div>
+    </div>
+
+    <!-- header with title and back button -->
+    <div class="edit-profile-header">
+      <h1 class="title1">Edit <span class="highlight-name">Profile</span></h1>
+      <button class="back-button" onclick="window.location.href='user_profile.html'">↩ Back</button>
+    </div>
+
+    <div class="transaction-card">
+      <div class="profile-container">
+
+        <!-- profile picture section -->
+        <div class="profile-pic-section">
+          <div class="profile-pic-box">
+            <img id="profilePreview" src="images/profile.svg" alt="Profile Picture" />
+          </div>
+          <label for="uploadButton" class="upload-btn">Upload Picture</label>
+          <input type="file" id="uploadButton" class="upload-button" />
+        </div>
+
+        <!-- form fields -->
+        <div class="profile-info">
+          <div class="info-grid">
+
+            <!-- First Name -->
+            <div class="info-item">
+              <label>First Name</label>
+              <input type="text" value="Gaile" />
+            </div>
+
+            <!-- Last Name -->
+            <div class="info-item">
+              <label>Last Name</label>
+              <input type="text" value="Doe" />
+            </div>
+
+            <!-- Email Address -->
+            <div class="info-item">
+              <label>Email Address</label>
+              <input type="email" value="gaile@email.com" />
+            </div>
+
+            <!-- Enter Code -->
+            <div class="info-item">
+              <label>Enter Code</label>
+              <input type="text" placeholder="Enter code" />
+            </div>
+
+            <!-- Send Code button -->
+            <div class="info-item">
+              <button class="send-code-btn">Send Code</button>
+            </div>
+
+            <!-- Confirm Code button -->
+            <div class="info-item">
+              <button class="send-code-btn">Confirm Code</button>
+            </div>
+
+            <!-- Password -->
+            <div class="info-item">
+              <label>Password</label>
+              <input type="password" placeholder="Enter password" />
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="info-item">
+              <label>Confirm Password</label>
+              <input type="password" placeholder="Confirm password" />
+            </div>
+
+            <!-- Save Profile button -->
+            <div class="info-item save-cell">
+              <button class="save-profile-btn">Save Profile</button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="successModal" class="success-modal">
+      <div class="modal-content">
+        <h3>Your profile has been saved successfully!</h3>
+        <button id="closeSuccessModal" class="close-btn">Close</button>
+      </div>
+    </div>
+
+    <!-- logout modal (unchanged) -->
+    <div id="logoutModal" class="logout-modal">
+      <div class="modal-content">
+        <h3>Are you sure you want to log out?</h3>
+        <div class="modal-buttons">
+          <button id="confirmLogout" class="confirm-btn">Yes</button>
+          <button id="cancelLogout" class="cancel-btn">No</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/dateLinksLogout.js"></script>
+    <script src="js/user_edit_profile.js"></script>
+  </body>
+</html>
