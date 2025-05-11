@@ -152,4 +152,8 @@ Email: admin@gmail.com
 Password: AdminAccount123
 */
 INSERT INTO Admin (Email, PasswordHash) 
-VALUES ('admin@gmail.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
+VALUES (
+    'admin@gmail.com', 
+    '$2y$10$DbagTVUo3pyP76TWJWqj9ee3z/COVFPs1HEFPdcWGwzVdwgTnkl6q'
+    -- Password: AdminAccount123
+);
