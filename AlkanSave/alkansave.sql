@@ -133,18 +133,17 @@ MODIFY COLUMN Role VARCHAR(20) DEFAULT 'user',
 MODIFY COLUMN AccountStatus ENUM('Active','Inactive') DEFAULT 'Active';
 
 
--- Drop the old table if it exists
-DROP TABLE IF EXISTS Admin;
+-- Remove the username index first (since we'll be dropping the column)
+DROP INDEX idx_username ON Admin;
 
--- Create new table with email instead of username
-CREATE TABLE Admin (
-    AdminID INT AUTO_INCREMENT PRIMARY KEY,
-    Email VARCHAR(100) UNIQUE NOT NULL,
-    PasswordHash VARCHAR(255) NOT NULL,
-    LastLogin DATETIME,
-    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-    INDEX idx_email (Email)
-);
+-- Drop the Username column
+ALTER TABLE Admin DROP COLUMN Username;
+
+-- Add the Email column with unique constraint
+ALTER TABLE Admin ADD COLUMN Email VARCHAR(100) UNIQUE NOT NULL;
+
+-- Add the new index
+CREATE INDEX idx_email ON Admin (Email);
 
 -- Insert the default admin account
 INSERT INTO Admin (Email, PasswordHash) 
