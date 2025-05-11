@@ -1,0 +1,183 @@
+/* Base styles */
+body {
+    margin: 0;
+    font-family: 'Garet', sans-serif;
+    background-image: url('../images/Background.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  /* Main container */
+  .login-container {
+    background-color: #fff9f4;
+    display: flex;
+    border-radius: 25px;
+    width: 90%;
+    max-width: 1100px;
+    height: 500px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Left section */
+  .left-section {
+    flex: 0.9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .logo-img {
+    width: 220px;
+    max-width: 100%;
+  }
+  
+  .brand-title {
+    font-size: 2.2rem;
+    margin: 10px 0 5px;
+  }
+  
+  .text-alkan {
+    color: #f07eae;
+    font-weight: bold;
+  }
+  
+  .text-save {
+    color: #3b3736;
+    font-weight: bold;
+  }
+  
+  .welcome-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    margin: .1px 0;
+  }
+  
+  .subtagline {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: .1px;
+  }
+  
+  /* Right section */
+  .right-section {
+    flex: 1;
+    padding: 40px 60px 40px 80px; /* left padding is higher */
+    position: relative;
+
+  }
+  
+  .back-btn {
+    font-family: 'Poppins', sans-serif;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #fcd1e7;
+    border-radius: 999px;
+    padding: 8px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none; /* removes underline */
+    color: #3b3736;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .back-btn:hover {
+    background-color: #f9a8c6;
+    transform: translateY(-2px); /* nice slight lift on hover */
+  }
+  
+  .arrow {
+    font-size: 1.2rem;
+  }
+
+  .form-wrapper {
+    margin-left: 10px; /* adjust this as needed */
+  }
+  
+  
+  /* Form title */
+  .form-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1e1e1e;
+    margin-bottom: 2px;
+  }
+  
+  .form-subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: #1e1e1e;
+    margin-top: 0;
+    margin-bottom: 15px !important;
+  }
+  
+  /* Input fields */
+  .input-field {
+    font-family: 'Poppins', sans-serif;
+    width: 90%;
+    padding: 10px 14px;
+    font-size: 13px;
+    border: 2px solid #f07eae;
+    border-radius: 999px;
+    background-color: #fbc2d4;
+    color: #fff;
+    margin-bottom: 15px;
+    outline: none;
+  }
+  
+  .input-field::placeholder {
+    color: #fff;
+    opacity: 1;
+  }
+  
+  /* Forgot password */
+  .forgot-password {
+    font-family: 'Poppins', sans-serif;
+    display: block;
+    text-align: right;
+    color: #3b52a0;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-decoration: none;
+    margin-bottom: 20px;
+    margin-right: 12px;
+  }
+  
+  /* Login button */
+  .login-btn {
+    font-family: 'Poppins', sans-serif;
+    padding: 8px 50px; /* better horizontal spacing */
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background-color: #c187cc;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    display: block;
+    margin: 0 auto; /* centers it */
+    width: fit-content; /* keeps it as small as needed */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+  
+  .login-btn:hover {
+    background-color: #a768b2;
+    transform: translateY(-2px); /* nice slight lift on hover */
+  }
+  

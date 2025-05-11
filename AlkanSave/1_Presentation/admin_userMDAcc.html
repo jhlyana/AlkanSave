@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AlkanSave</title>
+  <link rel="icon" href="images/logo.svg" type="image/x-icon">
+  <link rel="stylesheet" href="css/sharedLayout.css" />
+  <link rel="stylesheet" href="css/admin_userM.css" />
+  <link rel="stylesheet" href="css/logout.css" />
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo">
+      <img src="images/logo.svg" alt="AlkanSave Logo"/>
+      <h2><span class="alkan">Alkan</span><span class="save">Save</span></h2>
+    </div>
+    <nav>
+        <a href="admin_dashboard.html" class="active"><img src="images/analytics_icon.svg" alt="Home">Analytics Dashboard</a>
+        <a href="admin_userM.html" id="userManagementLink"><img src="images/profile_icon.svg" alt="Savings & Goals">User Management</a>
+        <a href="admin_category.html"><img src="images/category_icon.svg" alt="Transaction">Category Management</a>
+        <a href="admin_actlog.html"><img src="images/activity_icon.svg" alt="Category">Activity Logs</a>
+    </nav>
+    <a href="landing.html" class="logout" id="logoutButton">
+      <img src="images/logout_icon.svg" alt="Logout">Log Out
+    </a>
+  </div> 
+
+  <div class="main-content">
+    <h1 class="title1">User <span class="highlight-name">Management</span></h1>
+    <br>
+
+    <div class="search-bar-wrapper">
+      <div class="search-group">
+        <input type="text" placeholder="Search Account" id="searchInput" class="search-input" />
+        <button class="search-btn" id="searchBtn">
+          <img src="images/searchIcon.png" alt="Search"/>
+        </button>
+      </div>
+      <button class="backBtn" id="addGoalBtn" title="Add Goal" onclick="goBack()">
+        <img src="images/backIcon.png" alt="Search" class="addIcon"/>Back
+      </button>
+    </div>
+   
+    <div id="searchResults" class="search-results hidden"></div>
+
+    <section class="title-content">
+        <h3 class="title2">List of Deactivated Accounts</h3>
+        <div class="goals-list">
+            <div class="goals-deadline" id="userAccount">
+              <h3>mothergaile@gmail.com</h3>
+            </div>
+        </div>          
+    </section>
+  </div>
+
+  <div id="accountModal" class="account-modal hide">
+    <div class="account-content">
+      <h3>Are you sure you want to make changes of this account?</h3>
+      <div class="account-buttons">
+        <button id="activateAccount" class="activate-btn">Activate Account</button>
+        <button id="stayDeactivated" class="sdeactivate-btn">Stay Deactivated</button>
+      </div>
+    </div>
+    </div>
+
+
+    <div id="logoutModal" class="logout-modal">
+        <div class="modal-content">
+        <h3>Are you sure you want to log out?</h3>
+        <div class="modal-buttons">
+            <button id="confirmLogout" class="confirm-btn">Yes</button>
+            <button id="cancelLogout" class="cancel-btn">No</button>
+        </div>
+        </div>
+    </div>
+
+  <script src="js/viewUser.js"></script>
+  <script src="js/dateLinksLogout.js"></script>
+</body>
+</html>

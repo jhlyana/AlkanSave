@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AlkanSave</title>
+  <link rel="icon" href="images/logo.svg" type="image/x-icon">
+  <link rel="stylesheet" href="css/sharedLayout.css" />
+  <link rel="stylesheet" href="css/admin_userM.css" />
+  <link rel="stylesheet" href="css/logout.css" />
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo">
+      <img src="images/logo.svg" alt="AlkanSave Logo"/>
+      <h2><span class="alkan">Alkan</span><span class="save">Save</span></h2>
+    </div>
+    <nav>
+        <a href="admin_dashboard.html" class="active"><img src="images/analytics_icon.svg" alt="Home">Analytics Dashboard</a>
+        <a href="admin_userM.html" id="userManagementLink"><img src="images/profile_icon.svg" alt="Savings & Goals">User Management</a>
+        <a href="admin_category.html"><img src="images/category_icon.svg" alt="Transaction">Category Management</a>
+        <a href="admin_actlog.html"><img src="images/activity_icon.svg" alt="Category">Activity Logs</a>
+    </nav>
+    <a href="landing.html" class="logout" id="logoutButton">
+      <img src="images/logout_icon.svg" alt="Logout">Log Out
+    </a>
+  </div> 
+
+  <div class="main-content">
+    <h1 class="title1">Activity <span class="highlight-name">Log</span></h1>
+    <br>
+
+    <section class="title-content">
+        <br>
+        <div class="goals-list">
+            <div class="goals-deadline" id="userDetails">
+              <h3>mothergaile@gmail.com added a goal</h3>
+            </div>
+            <div class="goals-deadline" id="userDetails">
+                <h3>mothergaile@gmail.com added a goal</h3>
+            </div>
+            <div class="goals-deadline" id="userDetails">
+                <h3>mothergaile@gmail.com added a goal</h3>
+            </div>
+            <div class="goals-deadline" id="userDetails">
+                <h3>mothergaile@gmail.com added a goal</h3>
+            </div>
+            <div class="goals-deadline" id="userDetails">
+                <h3>mothergaile@gmail.com added a goal</h3>
+            </div>
+            <div class="goals-deadline" id="userDetails">
+                <h3>mothergaile@gmail.com added a goal</h3>
+            </div>
+            <div class="goals-deadline" id="userDetails">
+                <h3>mothergaile@gmail.com added a goal</h3>
+            </div>
+            <div class="goals-deadline" id="userDetails">
+                <h3>mothergaile@gmail.com added a goal</h3>
+            </div>
+        </div>
+        <br>          
+    </section>
+  </div>
+
+    <div id="logoutModal" class="logout-modal">
+    <div class="modal-content">
+      <h3>Are you sure you want to log out?</h3>
+      <div class="modal-buttons">
+        <button id="confirmLogout" class="confirm-btn">Yes</button>
+        <button id="cancelLogout" class="cancel-btn">No</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/dateLinksLogout.js"></script>
+</body>
+</html>
