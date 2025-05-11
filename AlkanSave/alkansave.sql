@@ -148,4 +148,7 @@ CREATE INDEX idx_email ON Admin (Email);
 -- Insert the default admin account
 INSERT INTO Admin (Email, PasswordHash) 
 VALUES ('admin@gmail.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
+
+-- The admin account is pre-created in the database with:
+-- Email: admin@gmail.com
 -- Password: AdminAccount123
