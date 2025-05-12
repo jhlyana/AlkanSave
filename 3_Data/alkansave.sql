@@ -140,3 +140,31 @@ VALUES (
     '$2y$10$DbagTVUo3pyP76TWJWqj9ee3z/COVFPs1HEFPdcWGwzVdwgTnkl6q'
     -- Password: AdminAccount123
 );
+
+
+-- update the Category table:
+ALTER TABLE Category 
+ADD COLUMN UserID INT NULL COMMENT 'NULL means system-wide category',
+ADD CONSTRAINT fk_category_user FOREIGN KEY (UserID) REFERENCES User(UserID) ON DELETE CASCADE;
+
+-- drop the foreign key constraint for CategoryID
+ALTER TABLE Goal DROP FOREIGN KEY goal_ibfk_2;
+
+-- modify GOAL
+ALTER TABLE Goal 
+MODIFY COLUMN UserID INT NOT NULL,
+MODIFY COLUMN CategoryID INT NOT NULL,
+ADD INDEX idx_user_goals (UserID, IsDeleted),
+DROP FOREIGN KEY Goal_ibfk_1,
+ADD CONSTRAINT fk_goal_user FOREIGN KEY (UserID) REFERENCES User(UserID) ON DELETE CASCADE;
+
+-- re-add the CategoryID foreign key constraint
+ALTER TABLE Goal 
+ADD CONSTRAINT fk_goal_category FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID);
+
+-- Update the SavingsTransaction table:
+ALTER TABLE SavingsTransaction 
+MODIFY COLUMN GoalID INT NOT NULL,
+DROP FOREIGN KEY SavingsTransaction_ibfk_1,  -- This drops the old GoalID foreign key
+ADD CONSTRAINT fk_transaction_goal FOREIGN KEY (GoalID) REFERENCES Goal(GoalID) ON DELETE CASCADE,
+ADD INDEX idx_goal_transactions (GoalID);
