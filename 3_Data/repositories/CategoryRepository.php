@@ -1,32 +1,36 @@
 <?php
-// Enable error reporting for development
+// FOR DEBUGGING, DELETE THIS LATER..... START DELETING HERE
+// Show errors during development
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+// FOR DEBUGGING, DELETE THIS LATER..... END DELETING HERE
 
 require_once __DIR__ . '/../Database.php';
 
 class CategoryRepository {
     private $db;
-    private $systemCategories = ['Emergency', 'Travel', 'Bills']; // System-wide categories
+    // Default categories available to all users
+    private $systemCategories = ['Emergency', 'Travel', 'Bills'];
 
+    // Set up database connection and ensure default categories exist
     public function __construct() {
         $this->db = Database::getInstance()->getConnection();
         $this->ensureSystemCategoriesExist();
     }
 
-    // Create system categories if they don't exist
+    // Creates default system categories if they don't exist in database
     private function ensureSystemCategoriesExist() {
         try {
             foreach ($this->systemCategories as $categoryName) {
-                // Check if category already exists
+                // Check if category already exists in system
                 $stmt = $this->db->prepare("
                     SELECT COUNT(*) FROM Category 
                     WHERE CategoryName = ? AND UserID IS NULL
                 ");
                 $stmt->execute([$categoryName]);
                 
+                // Add category if not found
                 if ($stmt->fetchColumn() == 0) {
-                    // Create the system category
                     $stmt = $this->db->prepare("
                         INSERT INTO Category 
                         (CategoryName, DateCreated, IsDeleted, UpdatedAt, UserID) 
@@ -40,7 +44,7 @@ class CategoryRepository {
         }
     }
 
-    // Get all categories (system-wide and user-specific)
+    // Get all categories available to a user (both system and personal)
     public function getCategories($userId) {
         try {
             $stmt = $this->db->prepare("
@@ -56,7 +60,7 @@ class CategoryRepository {
         }
     }
 
-    // Create a new category
+    // Add a new user-specific category
     public function createCategory($userId, $categoryName) {
         try {
             $stmt = $this->db->prepare("
@@ -70,7 +74,7 @@ class CategoryRepository {
         }
     }
 
-    // Check if category exists for user
+    // Check if a category name already exists for a user
     public function categoryExists($userId, $categoryName) {
         try {
             $stmt = $this->db->prepare("
@@ -85,7 +89,7 @@ class CategoryRepository {
         }
     }
     
-    // Get category by ID
+    // Get category details by its ID
     public function getCategoryById($categoryId) {
         try {
             $stmt = $this->db->prepare("
@@ -100,23 +104,20 @@ class CategoryRepository {
         }
     }
     
-    // Delete a category (soft delete)
-    // Note: This should only be used for user-specific categories
-    // System categories should never be deleted
+    // Mark a user's category as deleted if not in use
     public function deleteCategory($categoryId, $userId) {
         try {
-            // Check if it's a system category
+            // Verify category exists and belongs to user
             $category = $this->getCategoryById($categoryId);
             if (!$category || $category['UserID'] === null) {
-                return false; // Don't delete system categories
+                return false; // Can't delete system categories
             }
             
-            // Check if the category belongs to the user
             if ($category['UserID'] != $userId) {
-                return false; // Don't delete another user's categories
+                return false; // Can't delete another user's categories
             }
             
-            // Check if the category is in use by any active goals
+            // Check if category is being used by any active goals
             $stmt = $this->db->prepare("
                 SELECT COUNT(*) FROM Goal 
                 WHERE CategoryID = ? AND IsDeleted = FALSE
@@ -124,11 +125,10 @@ class CategoryRepository {
             $stmt->execute([$categoryId]);
             
             if ($stmt->fetchColumn() > 0) {
-                // Category is in use, don't delete
-                return false;
+                return false; // Category in use, can't delete
             }
             
-            // Soft delete the category
+            // Mark category as deleted
             $stmt = $this->db->prepare("
                 UPDATE Category 
                 SET IsDeleted = TRUE, UpdatedAt = NOW() 

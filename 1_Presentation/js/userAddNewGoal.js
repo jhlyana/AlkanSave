@@ -1,19 +1,20 @@
+// Wait for the page to fully load before executing scripts
 document.addEventListener('DOMContentLoaded', function() {
-    // Load categories when page loads
+    // Load available categories from server
     loadCategories();
     
-    // Set current date as default
+    // Set today's date as default for the start date field
     const today = new Date().toISOString().split('T')[0];
     if (document.getElementById('dateToday')) {
         document.getElementById('dateToday').value = today;
     }
     
-    // Set minimum date for target date (today)
+    // Prevent selecting past dates for target date
     if (document.getElementById('targetDate')) {
         document.getElementById('targetDate').setAttribute('min', today);
     }
     
-    // Event listeners
+    // Set up event listeners for category management
     if (document.getElementById('addCBtn')) {
         document.getElementById('addCBtn').addEventListener('click', openAddCategoryModal);
     }
@@ -26,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('cancelAddC').addEventListener('click', closeAddCategoryModal);
     }
     
-    // Form submission
+    // Handle form submission for adding new goal
     const form = document.querySelector('form');
     if (form) {
         form.addEventListener('submit', function(e) {
@@ -36,10 +37,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Display a message to user in modal or fallback to alert
 function showMessage(message, callback) {
     const modal = document.getElementById('messageModal');
     if (!modal) {
-        alert(message); // Fallback if modal doesn't exist
+        alert(message);
         if (callback) callback();
         return;
     }
@@ -51,10 +53,9 @@ function showMessage(message, callback) {
     
     modal.style.display = 'flex';
     
-    // Update confirm button behavior
+    // Update confirm button to prevent multiple handlers
     const confirmBtn = document.getElementById('confirmMessage');
     if (confirmBtn) {
-        // Remove previous click handlers
         const newBtn = confirmBtn.cloneNode(true);
         confirmBtn.parentNode.replaceChild(newBtn, confirmBtn);
         
@@ -65,6 +66,7 @@ function showMessage(message, callback) {
     }
 }
 
+// Fetch categories from server and populate dropdown
 function loadCategories() {
     fetch('/AlkanSave/2_Application/controllers/SavingsController.php?action=getGoals')
         .then(response => response.json())
@@ -78,13 +80,14 @@ function loadCategories() {
         .catch(error => console.error('Error:', error));
 }
 
+// Fill category dropdown with options from server
 function populateCategoryDropdown(categories) {
     const dropdown = document.getElementById('categories');
     if (!dropdown) return;
     
     dropdown.innerHTML = '';
     
-    // Add default option
+    // Create default disabled option
     const defaultOption = document.createElement('option');
     defaultOption.value = '';
     defaultOption.textContent = '-- Select Category --';
@@ -92,6 +95,7 @@ function populateCategoryDropdown(categories) {
     defaultOption.selected = true;
     dropdown.appendChild(defaultOption);
     
+    // Handle case when no categories exist
     if (!categories || categories.length === 0) {
         const option = document.createElement('option');
         option.value = '';
@@ -101,6 +105,7 @@ function populateCategoryDropdown(categories) {
         return;
     }
     
+    // Add each category as an option
     categories.forEach(category => {
         const option = document.createElement('option');
         option.value = category.CategoryID;
@@ -109,15 +114,17 @@ function populateCategoryDropdown(categories) {
     });
 }
 
+// Show modal for adding new category
 function openAddCategoryModal(e) {
-    if (e) e.preventDefault(); // Prevent any default behavior
+    if (e) e.preventDefault();
     
     const modal = document.getElementById('addCmodal');
     if (modal) {
-        modal.style.display = 'flex'; // Use flex for centering
+        modal.style.display = 'flex';
     }
 }
 
+// Hide category modal and clear input
 function closeAddCategoryModal() {
     const modal = document.getElementById('addCmodal');
     const input = document.getElementById('categoryName');
@@ -131,6 +138,7 @@ function closeAddCategoryModal() {
     }
 }
 
+// Send new category to server and update UI
 function addCategory() {
     const categoryNameInput = document.getElementById('categoryName');
     if (!categoryNameInput) {
@@ -145,12 +153,10 @@ function addCategory() {
         return;
     }
     
-    // Create form data for the request
     const formData = new FormData();
     formData.append('action', 'addCategory');
     formData.append('categoryName', categoryName);
     
-    // Send the request to the server
     fetch('/AlkanSave/2_Application/controllers/SavingsController.php?action=addCategory', {
         method: 'POST',
         body: formData
@@ -165,7 +171,7 @@ function addCategory() {
         if (data.success) {
             showMessage('Category added successfully!');
             closeAddCategoryModal();
-            loadCategories(); // Refresh categories
+            loadCategories();
         } else {
             showMessage(data.message || 'Failed to add category');
         }
@@ -176,8 +182,8 @@ function addCategory() {
     });
 }
 
+// Validate and submit new goal data to server
 function addGoal() {
-    // Get form values
     const categoryIdInput = document.getElementById('categories');
     const goalNameInput = document.getElementById('goalName') || document.getElementById('lastName');
     const targetAmountInput = document.getElementById('targetAmount') || document.getElementById('username');
@@ -195,7 +201,7 @@ function addGoal() {
     const startDate = startDateInput.value;
     const targetDate = targetDateInput.value;
     
-    // Validate inputs
+    // Validate form inputs
     if (!categoryId || categoryId === '') {
         showMessage('Please select a category');
         return;
@@ -221,7 +227,7 @@ function addGoal() {
         return;
     }
     
-    // Create form data for the request
+    // Prepare and send goal data to server
     const formData = new FormData();
     formData.append('action', 'addGoal');
     formData.append('categoryId', categoryId);
@@ -230,7 +236,6 @@ function addGoal() {
     formData.append('startDate', startDate);
     formData.append('targetDate', targetDate);
     
-    // Send the request to the server
     fetch('/AlkanSave/2_Application/controllers/SavingsController.php?action=addGoal', {
         method: 'POST',
         body: formData

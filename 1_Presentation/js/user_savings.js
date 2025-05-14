@@ -1,25 +1,32 @@
+// Run when page finishes loading
 document.addEventListener('DOMContentLoaded', function() {
+    // Verify user session and load savings goals
     checkSessionAndLoadGoals();
    
-    // Event listeners
+    // Set up button click handlers
     document.getElementById('addGoalBtn').addEventListener('click', redirectToAddGoal);
     document.getElementById('searchBtn').addEventListener('click', searchGoals);
+    
+    // Make search work when pressing Enter key
     document.getElementById('searchInput').addEventListener('keyup', function(event) {
         if (event.key === 'Enter') searchGoals();
     });
 });
 
+// Display message in popup modal
 function showMessage(message) {
     const modal = document.getElementById('messageModal');
     const messageText = document.getElementById('messageModalText');
     messageText.textContent = message;
     modal.style.display = 'flex';
    
+    // Set up close button
     document.getElementById('confirmMessage').onclick = function() {
         modal.style.display = 'none';
     };
 }
 
+// Check if user is logged in before loading data
 function checkSessionAndLoadGoals() {
     fetch('/AlkanSave/2_Application/controllers/AuthController.php?action=checkSession')
         .then(response => response.json())
@@ -27,6 +34,7 @@ function checkSessionAndLoadGoals() {
             if (data.authenticated) {
                 loadGoals();
             } else {
+                // Redirect to login if not authenticated
                 window.location.href = '/AlkanSave/1_Presentation/login.html';
             }
         })
@@ -36,6 +44,7 @@ function checkSessionAndLoadGoals() {
         });
 }
 
+// Get savings goals from server
 function loadGoals() {
     fetch('/AlkanSave/2_Application/controllers/SavingsController.php?action=getGoals')
         .then(response => {
@@ -44,6 +53,7 @@ function loadGoals() {
         })
         .then(data => {
             if (data.success) {
+                // Display goals and update category dropdown
                 renderGoals(data.goals);
                 populateCategoryDropdown(data.categories);
             } else {
@@ -56,6 +66,7 @@ function loadGoals() {
         });
 }
 
+// Create HTML cards for each savings goal
 function renderGoals(goals) {
     const goalsContainer = document.querySelector('.title-content');
     goalsContainer.innerHTML = '';
@@ -65,6 +76,7 @@ function renderGoals(goals) {
         return;
     }
    
+    // Create card for each goal
     goals.forEach(goal => {
         const amountLeft = Math.max(goal.TargetAmount - goal.SavedAmount, 0);
         const progressPercentage = Math.min((goal.SavedAmount / goal.TargetAmount) * 100, 100);
@@ -103,6 +115,7 @@ function renderGoals(goals) {
     });
 }
 
+// Show message when no goals exist
 function showNoGoalsMessage() {
     const goalsContainer = document.querySelector('.title-content');
     goalsContainer.innerHTML = `
@@ -114,10 +127,12 @@ function showNoGoalsMessage() {
     `;
 }
 
+// Fill category dropdown with options
 function populateCategoryDropdown(categories) {
     const dropdown = document.getElementById('categories');
     dropdown.innerHTML = '';
    
+    // Add each category as select option
     categories.forEach(category => {
         const option = document.createElement('option');
         option.value = category.CategoryID;
@@ -126,10 +141,12 @@ function populateCategoryDropdown(categories) {
     });
 }
 
+// Go to add new goal page
 function redirectToAddGoal() {
     window.location.href = 'user_add_goal.html';
 }
 
+// Search goals by name or category
 function searchGoals() {
     const searchTerm = document.getElementById('searchInput').value.trim();
    
@@ -148,31 +165,31 @@ function searchGoals() {
         .catch(error => console.error('Error:', error));
 }
 
+// Open modal to add savings to a goal
 function openAddSavingsModal(goalId) {
     const modal = document.getElementById('addSmodal');
     
-    // Set the hidden goal ID field
+    // Store which goal we're adding to
     const hiddenField = document.getElementById('savingsGoalId');
     if (hiddenField) {
         hiddenField.value = goalId;
     }
     
-    // Set today's date
+    // Set today's date as default
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('dateToday').value = today;
     
-    // Clear any previous amount
+    // Clear previous amount
     const amountInput = document.getElementById('enterAmount');
     if (amountInput) {
         amountInput.value = '';
     }
     
-    // Add the 'show' class to make it visible and centered
+    // Show modal
     modal.classList.add('show');
-    
-    // Set display to flex for proper centering
     modal.style.display = 'flex';
     
+    // Set up button handlers
     document.getElementById('confirmAddS').onclick = function() {
         addSavings(goalId);
     };
@@ -182,14 +199,18 @@ function openAddSavingsModal(goalId) {
     };
 }
 
+// Hide add savings modal
 function closeAddSavingsModal() {
     const modal = document.getElementById('addSmodal');
     modal.classList.remove('show');
     modal.style.display = 'none';
 }
 
+// Save new savings amount to server
 function addSavings(goalId) {
+    // FOR DEBUGGING, DELETE THIS LATER..... START DELETING HERE
     console.log("Starting addSavings for goal:", goalId);
+    // FOR DEBUGGING, DELETE THIS LATER..... END DELETING HERE
     
     const amountInput = document.getElementById('enterAmount');
     const dateInput = document.getElementById('dateToday');
@@ -218,12 +239,13 @@ function addSavings(goalId) {
     
     if (!isValid) return;
 
-    // Show loading state
+    // Show loading state on button
     const confirmBtn = document.getElementById('confirmAddS');
     const originalText = confirmBtn.textContent;
     confirmBtn.disabled = true;
     confirmBtn.textContent = 'Processing...';
     
+    // Send data to server
     fetch('/AlkanSave/2_Application/controllers/SavingsController.php?action=addSavings', {
         method: 'POST',
         headers: {
@@ -246,7 +268,7 @@ function addSavings(goalId) {
     .then(data => {
         if (data.success) {
             showMessage(data.message || 'Savings added successfully!');
-            loadGoals();
+            loadGoals(); // Refresh list
             closeAddSavingsModal();
         } else {
             throw new Error(data.message || 'Failed to add savings');
@@ -257,24 +279,30 @@ function addSavings(goalId) {
         showMessage(error.message);
     })
     .finally(() => {
+        // Restore button state
         confirmBtn.disabled = false;
         confirmBtn.textContent = originalText;
     });
 }
 
+// Open modal to edit goal details
 function openEditGoalModal(goalId, currentCategory, goalName, targetAmount, targetDate) {
     const modal = document.getElementById('editGoalmodal');
     modal.classList.add('show');
    
+    // Fill form with current values
     document.getElementById('goalName').value = goalName;
     document.getElementById('targetAmount').value = targetAmount;
     document.getElementById('targetDate').value = targetDate;
    
+    // Set today's date as default
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('dateToday').value = today;
    
+    // Store which goal we're editing
     modal.dataset.goalId = goalId;
    
+    // Set up button handlers
     document.getElementById('confirmeditGoal').onclick = function() {
         updateGoal(goalId);
     };
@@ -283,10 +311,12 @@ function openEditGoalModal(goalId, currentCategory, goalName, targetAmount, targ
     };
 }
 
+// Close edit modal
 function closeEditModal() {
     document.getElementById('editGoalmodal').classList.remove('show');
 }
 
+// Save updated goal to server
 function updateGoal(goalId) {
     const categorySelect = document.querySelector('#editGoalmodal select');
     const categoryId = categorySelect.value;
@@ -313,7 +343,7 @@ function updateGoal(goalId) {
     })
     .then(data => {
         if (data.success) {
-            loadGoals();
+            loadGoals(); // Refresh list
             closeEditModal();
         } else {
             showMessage('Failed to update goal');
@@ -325,11 +355,13 @@ function updateGoal(goalId) {
     });
 }
 
+// Show confirmation before deleting goal
 function deleteGoal(goalId) {
     const deleteModal = document.getElementById('deleteModal');
     deleteModal.style.display = 'flex';
     deleteModal.dataset.goalId = goalId;
 
+    // Set up button handlers
     document.getElementById('confirmDelete').onclick = function() {
         performDeleteGoal(goalId);
         deleteModal.style.display = 'none';
@@ -340,6 +372,7 @@ function deleteGoal(goalId) {
     };
 }
 
+// Actually delete goal from server
 function performDeleteGoal(goalId) {
     fetch('/AlkanSave/2_Application/controllers/SavingsController.php?action=deleteGoal', {
         method: 'POST',
@@ -356,7 +389,7 @@ function performDeleteGoal(goalId) {
     })
     .then(data => {
         if (data.success) {
-            loadGoals();
+            loadGoals(); // Refresh list
         } else {
             showMessage('Failed to delete goal');
         }
@@ -367,11 +400,12 @@ function performDeleteGoal(goalId) {
     });
 }
 
-// Helper functions
+// Format money amount with commas
 function formatCurrency(amount) {
     return parseFloat(amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 }
 
+// Format date as MM-DD-YYYY
 function formatDate(dateString) {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
@@ -381,6 +415,7 @@ function formatDate(dateString) {
     }).replace(/\//g, '-');
 }
 
+// Make text safe to display in HTML
 function escapeHtml(unsafe) {
     return unsafe
         .replace(/&/g, "&amp;")

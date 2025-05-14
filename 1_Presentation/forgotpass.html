@@ -6,6 +6,7 @@
   <title>Forgot Password | AlkanSave</title>
   <link rel="icon" type="image/png" href="/AlkanSave/1_Presentation/images/logo.svg">
   <link rel="stylesheet" href="/AlkanSave/1_Presentation/css/forgotpass.css" />
+  <link rel="stylesheet" href="/AlkanSave/1_Presentation/css/logout.css" />
 </head>
 <body>
   <div class="login-container">
@@ -27,13 +28,13 @@
         <h2 class="form-title">Reset Password</h2>
         <p class="form-subtitle">Enter your email to receive a reset code</p>
 
-        <!-- Step 1: Email Input -->
+        <!-- Email form - shown by default -->
         <form method="POST" action="/AlkanSave/2_Application/controllers/PasswordController.php" class="login-form" id="emailForm">
           <input type="email" name="email" placeholder="Email Address" class="input-field" required />
           <button type="submit" class="login-btn">Send Code</button>
         </form>
 
-        <!-- Step 2: Code and New Password (initially hidden) -->
+        <!-- Reset form - hidden until email is submitted -->
         <form method="POST" action="/AlkanSave/2_Application/controllers/PasswordController.php" class="login-form" id="resetForm" style="display: none;">
           <input type="hidden" name="email" id="resetEmail">
           <input type="text" name="code" placeholder="Verification Code" class="input-field" required />
@@ -42,9 +43,10 @@
           <button type="submit" class="login-btn">Reset Password</button>
         </form>
 
+        <!-- Test mode notice - yellow box -->
         <?php if (isset($_GET['test_mode'])): ?>
         <div class="test-notice">
-            TEST MODE: Check XAMPP error logs for verification code
+            Check your email for the verification code
         </div>
         <?php endif; ?>
 
@@ -65,8 +67,34 @@
     </div>
   </div>
 
+  <!-- Message modal using existing logout modal styles -->
+  <div id="messageModal" class="logout-modal">
+    <div class="modal-content">
+      <h3 id="messageModalText"></h3>
+      <div class="modal-buttons single-button">
+        <button id="confirmMessage" class="confirm-btn">OK</button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // Handle email submission and show reset form
+    // Function to show modal messages
+    function showMessage(message) {
+      const modal = document.getElementById('messageModal');
+      const messageText = document.getElementById('messageModalText');
+      
+      messageText.textContent = message;
+      modal.classList.add('show');
+      modal.classList.remove('hide');
+      
+      // Close modal when OK button is clicked
+      document.getElementById('confirmMessage').onclick = function() {
+        modal.classList.remove('show');
+        modal.classList.add('hide');
+      };
+    }
+
+    // Show reset form if email parameter exists in URL
     if (window.location.search.includes('email=')) {
       const urlParams = new URLSearchParams(window.location.search);
       const email = urlParams.get('email');
@@ -76,25 +104,36 @@
       document.getElementById('resetEmail').value = email;
     }
 
-    // Client-side password match validation
+    // Validate password match before form submission
     document.getElementById('resetForm').addEventListener('submit', function(e) {
       const password = e.target.password.value;
       const confirm = e.target.confirm_password.value;
       
       if (password !== confirm) {
         e.preventDefault();
-        alert('Passwords do not match!');
+        showMessage('Passwords do not match!');
       }
     });
+
+    // Display error messages from URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('error')) {
+      const errorMessages = {
+        'invalid_email': 'Email not found',
+        'invalid_code': 'Invalid verification code',
+        'update_failed': 'Failed to update password',
+        'email_failed': 'Failed to send email. Please try again.'
+      };
+      
+      const error = urlParams.get('error');
+      if (errorMessages[error]) {
+        showMessage(errorMessages[error]);
+      }
+    }
   </script>
 
   <style>
-    .error-message {
-      color: #ff4444;
-      text-align: center;
-      margin-top: 15px;
-    }
-    
+    /* Test mode notice styling - yellow box */
     .test-notice {
       background-color: #fff3cd;
       color: #856404;
@@ -103,6 +142,13 @@
       text-align: center;
       margin: 15px 0;
       border: 1px solid #ffeeba;
+    }
+    
+    /* Error message styling */
+    .error-message {
+      color: #ff4444;
+      text-align: center;
+      margin-top: 15px;
     }
   </style>
 </body>

@@ -5,12 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AlkanSave</title>
   <link rel="icon" href="images/logo.svg" type="image/x-icon">
+  <!-- CSS files for styling different components -->
   <link rel="stylesheet" href="css/sharedLayout.css" />
   <link rel="stylesheet" href="css/user_saving.css" />
   <link rel="stylesheet" href="css/addGoal.css" />
   <link rel="stylesheet" href="css/logout.css" />
 </head>
 <body>
+  <!-- Sidebar navigation menu -->
   <div class="sidebar">
     <div class="logo">
       <img src="images/logo.svg" alt="AlkanSave Logo"/>
@@ -18,7 +20,7 @@
     </div>
     <nav>
       <a href="user_home.html"><img src="images/home_icon.svg" alt="Home">Home</a>
-      <a href="user_savings.html"class="active"><img src="images/savings_icon.svg" alt="Savings & Goals">Savings & Goals</a>
+      <a href="user_savings.html" class="active"><img src="images/savings_icon.svg" alt="Savings & Goals">Savings & Goals</a>
       <a href="user_transaction.html"><img src="images/transaction_icon.svg" alt="Transaction">Transaction</a>
       <a href="user_category.html"><img src="images/category_icon.svg" alt="Category">Category</a>
       <a href="user_profile.html"><img src="images/profile_icon.svg" alt="Profile">Profile</a>
@@ -28,15 +30,18 @@
     </a>
   </div> 
 
+  <!-- Main content area for adding new goals -->
   <div class="main-content">
     <h1 class="title1">Savings & <span class="highlight-name">Goals</span></h1>
     <br>
     <div class="search-bar-wrapper">
+      <!-- Back button to return to savings page -->
       <button class="backBtn" id="addGoalBtn" title="Add Goal" onclick="window.location.href='user_savings.html'">
         <img src="images/backIcon.png" alt="Search" class="addIcon"/>Back
       </button>
     </div>
    
+    <!-- Form container for adding new goals -->
     <div class="form-container">
         <h2 class="form-title"><span class="add">Add New</span> <span class="newGoal">Goal</span></h2>
         
@@ -45,8 +50,9 @@
             <div class="form-group" style="flex: 1;">
               <label for="categories">Select Category:</label>
               <div class="category-input-group">
+                <!-- Categories will be populated dynamically -->
                 <select id="categories" name="services" class="category">
-                  <option value="maternalCare">Bills</option>
+                  <!-- Options will be loaded from database -->
                 </select>
                 <button class="addC-goal-btn" id="addCBtn">
                   <img src="images/addIcon.png" alt="Add Icon" class="addIcon"/>Add New Category
@@ -57,23 +63,23 @@
   
           <div class="form-row">
             <div class="form-group">
-              <label for="lastName">Goal Name:</label>
-              <input type="text" id="lastName" name="lastName" />
+              <label for="goalName">Goal Name:</label>
+              <input type="text" id="goalName" name="goalName" />
             </div>
             <div class="form-group">
-              <label for="firstName">Date Today:</label>
-              <input type="date" id="dateToday" name="Date Today" />
+              <label for="dateToday">Date Today:</label>
+              <input type="date" id="dateToday" name="dateToday" />
             </div>
           </div>
   
           <div class="form-row">
             <div class="form-group">
-              <label for="username">Target Amount:</label>
-              <input type="text" id="username" name="username" />
+              <label for="targetAmount">Target Amount:</label>
+              <input type="text" id="targetAmount" name="targetAmount" />
             </div>
             <div class="form-group">
-              <label for="email">Target Date:</label>
-              <input type="date" id="targetDate" name="Target Date" />
+              <label for="targetDate">Target Date:</label>
+              <input type="date" id="targetDate" name="targetDate" />
             </div>
           </div>
   
@@ -84,6 +90,7 @@
         </form>
     </div>
 
+    <!-- Modal for adding new categories -->
     <div id="addCmodal" class="addC-modal">
       <div class="addC-content">
           <h2 class="addC-title"><span class="add">Add New</span> <span class="newGoal">Category</span></h2>
@@ -98,28 +105,30 @@
       </div>
     </div>
 
-  <div id="logoutModal" class="logout-modal">
-    <div class="modal-content">
-      <h3>Are you sure you want to log out?</h3>
-      <div class="modal-buttons">
-        <button id="confirmLogout" class="confirm-btn">Yes</button>
-        <button id="cancelLogout" class="cancel-btn">No</button>
+    <!-- Logout confirmation modal -->
+    <div id="logoutModal" class="logout-modal">
+      <div class="modal-content">
+        <h3>Are you sure you want to log out?</h3>
+        <div class="modal-buttons">
+          <button id="confirmLogout" class="confirm-btn">Yes</button>
+          <button id="cancelLogout" class="cancel-btn">No</button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Message Modal (for all alerts) -->
-  <div id="messageModal" class="logout-modal hide">
-    <div class="modal-content">
-        <h3 id="messageModalText"></h3>
-        <div class="modal-buttons single-button">
-            <button id="confirmMessage" class="confirm-btn">OK</button>
-        </div>
+    <!-- Generic message modal for alerts -->
+    <div id="messageModal" class="logout-modal hide">
+      <div class="modal-content">
+          <h3 id="messageModalText"></h3>
+          <div class="modal-buttons single-button">
+              <button id="confirmMessage" class="confirm-btn">OK</button>
+          </div>
+      </div>
     </div>
-  </div>
 
-  <script src="js/addCategory.js"></script>
-  <script src="js/userAddNewGoal.js"></script>
-  <script src="js/dateLinksLogout.js"></script>
+    <!-- JavaScript files for functionality -->
+    <script src="js/addCategory.js"></script>
+    <script src="js/userAddNewGoal.js"></script>
+    <script src="js/dateLinksLogout.js"></script>
 </body>
 </html>
