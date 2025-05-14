@@ -6,6 +6,7 @@
   <title>AlkanSave Login</title>
   <link rel="icon" type="image/png" href="/AlkanSave/1_Presentation/images/logo.svg">
   <link rel="stylesheet" href="/AlkanSave/1_Presentation/css/login.css">
+  <link rel="stylesheet" href="/AlkanSave/1_Presentation/css/logout.css">
   <link href="https://fonts.googleapis.com/css2?family=Garet&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -29,7 +30,7 @@
         <p class="form-subtitle">Enter your login details below.</p>
   
         <!-- Login Form -->
-        <form method="POST" action="/AlkanSave/2_Application/controllers/AuthController.php" class="login-form">
+        <form method="POST" action="/AlkanSave/2_Application/controllers/AuthController.php?action=login" class="login-form" id="loginForm">
           <input type="hidden" name="login" value="1">
           
           <input type="email" 
@@ -51,21 +52,65 @@
             <a href="/AlkanSave/1_Presentation/forgotpass.html">Forgot Password?</a>
           </div>
         </form>
-        
-        <!-- Error Handling -->
-        <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          const urlParams = new URLSearchParams(window.location.search);
-          const error = urlParams.get('error');
-          
-          if (error === 'invalid_credentials') {
-            alert('Invalid email or password. Please try again.');
-            history.replaceState({}, '', window.location.pathname);
-          }
-        });
-        </script>
       </div>
     </div>
   </div>
+
+  <!-- Message Modal -->
+  <div id="messageModal" class="logout-modal">
+    <div class="modal-content">
+        <h3 id="messageModalText"></h3>
+        <div class="modal-buttons single-button">
+            <button id="confirmMessage" class="confirm-btn">OK</button>
+        </div>
+    </div>
+  </div>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+      // Check for URL error parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const error = urlParams.get('error');
+      
+      if (error === 'invalid_credentials') {
+          showMessage('Invalid email or password. Please try again.');
+          // Clean the URL
+          history.replaceState({}, '', window.location.pathname);
+      }
+      
+      // Basic form validation
+      const loginForm = document.getElementById('loginForm');
+      if (loginForm) {
+          loginForm.addEventListener('submit', function(e) {
+              if (!loginForm.checkValidity()) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  showMessage('Please fill in all required fields.');
+              }
+          });
+      }
+  });
+
+  // Function to show modal messages
+  window.showMessage = function(message) {
+      const modal = document.getElementById('messageModal');
+      const modalText = document.getElementById('messageModalText');
+      const confirmBtn = document.getElementById('confirmMessage');
+      
+      modalText.textContent = message;
+      modal.style.display = 'flex';
+      
+      confirmBtn.onclick = function() {
+          modal.style.display = 'none';
+      };
+      
+      // Close when clicking outside modal
+      modal.onclick = function(event) {
+          if (event.target === modal) {
+              modal.style.display = 'none';
+          }
+      };
+  };
+  </script>
 </body>
 </html>

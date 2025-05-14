@@ -1,16 +1,21 @@
 <?php
+// Enable error reporting for development
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 require_once __DIR__ . '/../Database.php';
 
 class UserRepository {
-    private $db;
+    private $pdo;
     
     public function __construct() {
-        $this->db = Database::getInstance();
+        $db = Database::getInstance();
+        $this->pdo = $db->getConnection(); // Changed from getPDO() to getConnection()
     }
     
     public function findByEmail($email) {
         try {
-            $stmt = $this->db->prepare("SELECT * FROM User WHERE Email = ?");
+            $stmt = $this->pdo->prepare("SELECT * FROM User WHERE Email = ?");
             $stmt->execute([$email]);
             return $stmt->fetch();
         } catch (PDOException $e) {
@@ -21,7 +26,7 @@ class UserRepository {
     
     public function createUser($data) {
         try {
-            $stmt = $this->db->prepare(
+            $stmt = $this->pdo->prepare(
                 "INSERT INTO User 
                 (FirstName, LastName, Email, DOB, PasswordHash, Role, AccountStatus) 
                 VALUES (?, ?, ?, ?, ?, 'user', 'Active')"
@@ -48,7 +53,7 @@ class UserRepository {
     // ADMIN STATISTICS METHODS
     public function getTotalUsers() {
         try {
-            $stmt = $this->db->prepare("SELECT COUNT(*) as count FROM User");
+            $stmt = $this->pdo->prepare("SELECT COUNT(*) as count FROM User");
             $stmt->execute();
             return $stmt->fetch()['count'];
         } catch (PDOException $e) {
@@ -59,7 +64,7 @@ class UserRepository {
 
     public function getActiveUsers() {
         try {
-            $stmt = $this->db->prepare(
+            $stmt = $this->pdo->prepare(
                 "SELECT COUNT(*) as count FROM User 
                 WHERE AccountStatus = 'Active'"
             );
@@ -73,7 +78,7 @@ class UserRepository {
 
     public function getActiveUsersThisMonth() {
         try {
-            $stmt = $this->db->prepare(
+            $stmt = $this->pdo->prepare(
                 "SELECT COUNT(*) as count FROM User 
                 WHERE AccountStatus = 'Active' 
                 AND MONTH(LastLogin) = MONTH(CURRENT_DATE()) 
@@ -89,7 +94,7 @@ class UserRepository {
 
     public function getAverageSavings() {
         try {
-            $stmt = $this->db->prepare(
+            $stmt = $this->pdo->prepare(
                 "SELECT AVG(Amount) as average FROM Savings"
             );
             $stmt->execute();
@@ -102,7 +107,7 @@ class UserRepository {
 
     public function getCommonCategories($limit = 4) {
         try {
-            $stmt = $this->db->prepare(
+            $stmt = $this->pdo->prepare(
                 "SELECT c.CategoryName as name, COUNT(t.TransactionID) as count 
                 FROM Transaction t
                 JOIN Category c ON t.CategoryID = c.CategoryID
@@ -116,7 +121,6 @@ class UserRepository {
             error_log("Database error in getCommonCategories: " . $e->getMessage());
             return [
                 ['name' => 'Travel', 'count' => 0],
-                ['name' => 'Education', 'count' => 0],
                 ['name' => 'Emergency Funds', 'count' => 0],
                 ['name' => 'Bills', 'count' => 0]
             ];

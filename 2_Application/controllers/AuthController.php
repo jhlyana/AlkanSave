@@ -1,8 +1,6 @@
 <?php
-// Start session at the very top
-session_start();
 
-// Error reporting
+// Enable error reporting for development
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -14,15 +12,50 @@ class AuthController {
     private $adminRepo;
     
     public function __construct() {
+        // Start session only if not already started
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        
         $this->userRepo = new UserRepository();
         $this->adminRepo = new AdminRepository();
     }
     
-    public function login() {
-        session_start();
+    public function handleRequest() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['login'])) {
+                $this->login();
+            } elseif (isset($_POST['signup'])) {
+                $this->signup();
+            }
+        } elseif (isset($_GET['action'])) {
+            switch ($_GET['action']) {
+                case 'checkSession':
+                    $this->checkSession();
+                    break;
+            }
+        }
         
+        // Fallback for invalid requests
+        header("Location: /AlkanSave/1_Presentation/login.html");
+        exit();
+    }
+    
+    private function checkSession() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        
+        header('Content-Type: application/json');
+        echo json_encode([
+            'authenticated' => isset($_SESSION['user_id']) || isset($_SESSION['admin_id'])
+        ]);
+        exit();
+    }
+    
+    public function login() {
         // Clear any existing session data
-        session_unset();
+        $_SESSION = array();
         
         $email = $_POST['email'];
         $password = $_POST['password'];
@@ -107,17 +140,5 @@ class AuthController {
 }
 
 // Handle request
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $auth = new AuthController();
-    
-    if (isset($_POST['login'])) {
-        $auth->login();
-    } elseif (isset($_POST['signup'])) {
-        $auth->signup();
-    }
-    
-    // Fallback for invalid requests
-    header("Location: /AlkanSave/1_Presentation/login.html");
-    exit();
-}
-?>
+$auth = new AuthController();
+$auth->handleRequest();

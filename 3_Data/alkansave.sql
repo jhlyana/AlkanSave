@@ -168,3 +168,12 @@ MODIFY COLUMN GoalID INT NOT NULL,
 DROP FOREIGN KEY SavingsTransaction_ibfk_1,  -- This drops the old GoalID foreign key
 ADD CONSTRAINT fk_transaction_goal FOREIGN KEY (GoalID) REFERENCES Goal(GoalID) ON DELETE CASCADE,
 ADD INDEX idx_goal_transactions (GoalID);
+
+
+-- new
+ALTER TABLE Goal 
+MODIFY COLUMN SavedAmount DECIMAL(10,2) NOT NULL DEFAULT 0;
+
+
+--new 
+ALTER TABLE Goal MODIFY SavedAmount DECIMAL(10,2) NOT NULL DEFAULT 0.00;
