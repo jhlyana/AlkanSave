@@ -1,13 +1,21 @@
 <?php
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use Dotenv\Dotenv;
+
 class Database {
     private static $instance = null;
     private $connection;
     
     private function __construct() {
-        $host = 'localhost';
-        $dbname = 'alkansave';  // Your database name
-        $username = 'root';     // Default XAMPP username
-        $password = '';         // Default XAMPP password (empty)
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+        $dotenv->load();
+
+        $host = $_ENV['DB_HOST'];
+        $dbname = $_ENV['DB_NAME'];
+        $username = $_ENV['DB_USER'];
+        $password = $_ENV['DB_PASS'];
         
         try {
             $this->connection = new PDO(
