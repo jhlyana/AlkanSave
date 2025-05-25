@@ -1,13 +1,15 @@
+/* Transaction History Page Styles */
 .title1 {
     font-size: 46px;
     color: #24336e;
 }
-
 .highlight-name {
     color: #f07eae;
 }
-
 .main-content {
+    padding: 2rem;
+    background: linear-gradient(135deg, #fff5f8, #ffe4e8);
+    min-height: 100vh;
     overflow: hidden;
 }
 
