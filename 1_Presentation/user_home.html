@@ -34,7 +34,7 @@
     </div>
 
     <section class="home-content">
-      <h1 class="welcome">Welcome, <span class="highlight-name">Saver!</span></h1>
+      <h1 class="welcome">Welcome, <span class="highlight-name" id="userName">Saver!</span></h1>
       <p class="daily-quote" id="dailyQuote">Loading your daily dose of motivation...</p>
 
       <div class="top-row">
@@ -43,7 +43,7 @@
             <circle class="progress-ring__circle-bg" r="50" cx="60" cy="60"/>
             <circle class="progress-ring__circle" id="savingsCircle" r="50" cx="60" cy="60"/>
           </svg>
-          <div class="progress-text" id="savingsText">10%</div>
+          <div class="progress-text" id="savingsText">0%</div>
           <p class="label">Savings Progress</p>
         </div>
         <div class="progress-ring">
@@ -51,7 +51,7 @@
             <circle class="progress-ring__circle-bg" r="50" cx="60" cy="60"/>
             <circle class="progress-ring__circle" id="goalsCircle" r="50" cx="60" cy="60"/>
           </svg>
-          <div class="progress-text" id="goalsText">10%</div>
+          <div class="progress-text" id="goalsText">0%</div>
           <p class="label">Goal Progress</p>
         </div>
         <div class="add-savings-box" onclick="window.location.href='user_savings.html';">
@@ -59,7 +59,7 @@
           <p>Add Savings</p>
         </div>
         <div class="total-saved-box">
-          <h3>₱5,000.00</h3>
+          <h3 id="totalSavedAmount">₱0.00</h3>
           <p>Total Money Saved</p>
         </div>
       </div>
@@ -72,10 +72,9 @@
 
         <div class="goals-deadline">
           <h3>GOALS DEADLINES</h3>
-          <div class="goal-entry"><span>Travel: Canada</span><span>10-12-2025</span></div>
-          <div class="goal-entry"><span>New Laptop</span><span>08-30-2025</span></div>
-          <div class="goal-entry"><span>Emergency Fund</span><span>12-15-2025</span></div>
-          <div class="goal-entry"><span>Christmas Gifts</span><span>12-01-2025</span></div>
+          <div id="goalsDeadlineContainer">
+            <div class="goal-entry"><span>Loading...</span><span>-</span></div>
+          </div>
         </div>
       </div>
     </section>
@@ -91,7 +90,6 @@
     </div>
   </div>
 
-  <script src="js/dateLinksLogout.js"></script>
-  <script src="js/user_home.js"></script>
+  <script src="js/user_home_combined.js"></script>
 </body>
 </html>
