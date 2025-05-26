@@ -33,83 +33,67 @@
       <div class="time-box" id="timeBox" data-label="TIME"></div>
     </div>
 
-    <!-- header with title and back button -->
     <div class="edit-profile-header">
       <h1 class="title1">Edit <span class="highlight-name">Profile</span></h1>
       <button class="back-button" onclick="window.location.href='user_profile.html'">↩ Back</button>
     </div>
 
     <div class="transaction-card">
-      <div class="profile-container">
-
-        <!-- profile picture section -->
+      <form id="editProfileForm" class="profile-container">
         <div class="profile-pic-section">
           <div class="profile-pic-box">
             <img id="profilePreview" src="images/profile.svg" alt="Profile Picture" />
           </div>
-          <label for="uploadButton" class="upload-btn">Upload Picture</label>
-          <input type="file" id="uploadButton" class="upload-button" />
+          <label for="profilePicture" class="upload-btn">Upload Picture</label>
+          <input type="file" id="profilePicture" name="profilePicture" accept="image/*" />
         </div>
 
-        <!-- form fields -->
         <div class="profile-info">
           <div class="info-grid">
-
-            <!-- First Name -->
             <div class="info-item">
               <label>First Name</label>
-              <input type="text" value="Gaile" />
+              <input type="text" id="firstName" name="firstName" required />
             </div>
 
-            <!-- Last Name -->
             <div class="info-item">
               <label>Last Name</label>
-              <input type="text" value="Doe" />
+              <input type="text" id="lastName" name="lastName" required />
             </div>
 
-            <!-- Email Address -->
             <div class="info-item">
               <label>Email Address</label>
-              <input type="email" value="gaile@email.com" />
+              <input type="email" id="email" name="email" required />
             </div>
 
-            <!-- Enter Code -->
             <div class="info-item">
               <label>Enter Code</label>
-              <input type="text" placeholder="Enter code" />
+              <input type="text" id="verificationCode" name="verificationCode" placeholder="Enter verification code" />
             </div>
 
-            <!-- Send Code button -->
             <div class="info-item">
-              <button class="send-code-btn">Send Code</button>
+              <button type="button" id="sendCodeBtn" class="send-code-btn">Send Code</button>
             </div>
 
-            <!-- Confirm Code button -->
             <div class="info-item">
-              <button class="send-code-btn">Confirm Code</button>
+              <button type="button" id="confirmCodeBtn" class="send-code-btn">Confirm Code</button>
             </div>
 
-            <!-- Password -->
             <div class="info-item">
               <label>Password</label>
-              <input type="password" placeholder="Enter password" />
+              <input type="password" id="password" name="password" placeholder="Enter new password" />
             </div>
 
-            <!-- Confirm Password -->
             <div class="info-item">
               <label>Confirm Password</label>
-              <input type="password" placeholder="Confirm password" />
+              <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm new password" />
             </div>
 
-            <!-- Save Profile button -->
             <div class="info-item save-cell">
-              <button class="save-profile-btn">Save Profile</button>
+              <button type="submit" class="save-profile-btn">Save Profile</button>
             </div>
-
           </div>
         </div>
-
-      </div>
+      </form>
     </div>
 
     <div id="successModal" class="success-modal">
@@ -119,7 +103,6 @@
       </div>
     </div>
 
-    <!-- logout modal (unchanged) -->
     <div id="logoutModal" class="logout-modal">
       <div class="modal-content">
         <h3>Are you sure you want to log out?</h3>
